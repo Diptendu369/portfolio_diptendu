@@ -1,0 +1,122 @@
+Question 1.
+
+You are given an array A of length N. An element X is said to be dominant if the
+frequency of X in A is strictly greater than the frequency of any other element in the A.
+For example, if A = [2, 1, 4, 4, 4] then 4 is a dominant element since its frequency is
+higher than the frequency of any other element in A.
+Find if there exists any dominant element in A.
+Input Format
+ The first line contains an integer N — the size of the array A.
+ The second line contains N space-separated integers denoting the array A.
+Output Format
+For each test case, output YES if there exists any dominant element in A. Otherwise,
+output NO.
+Example:
+Input: 2 2 2 2 2 Output: YES
+Input: 1 2 3 4 5 Output: NO
+Input: 2 5 5 2 1 Output: NO
+Input: 1 6 6 6 5 2 Output: YES
+
+
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    int N;
+    cin >> N;
+
+    int A[N];
+    for (int i = 0; i < N; ++i) {
+        cin >> A[i];
+    }
+
+
+    sort(A, A + N);
+
+    int currentNum = A[0];
+    int count = 1;
+    int maxFreq = 1;
+
+    for (int i = 1; i < N; ++i) {
+        if (A[i] == currentNum) {
+            count++;
+            maxFreq = max(maxFreq, count);
+        } else {
+            currentNum = A[i];
+            count = 1;
+        }
+    }
+
+  
+    bool dominantExists = (maxFreq > N / 2);
+
+   
+    if (dominantExists) {
+        cout << "YES\n";
+    } else {
+        cout << "NO\n";
+    }
+
+    return 0;
+}
+
+
+
+
+
+
+Question 2.
+
+Search single element in a sorted array.
+Problem Statement: Given an array of N integers. Every number in the array except
+one appears twice. Find the single number in the array.
+Example:
+Input: [2, 2, 5, 5, 9, 9, 12, 12, 19, 23, 23, 31, 31] Output: 19
+Input: [3, 3, 7, 9, 9, 13, 13, 23, 23, 28, 28, 32, 32, 35, 35] Output: 7
+
+
+
+
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    int N;
+
+   
+    cout << "Enter the size of the array: ";
+    cin >> N;
+
+   
+    int arr[N];
+    cout << "Enter the array elements: ";
+    for (int i = 0; i < N; ++i) {
+        cin >> arr[i];
+    }
+
+    
+    sort(arr, arr + N);
+
+
+    int singleNumber = 0;
+    for (int i = 0; i < N - 1; i += 2) {
+        if (arr[i] != arr[i + 1]) {
+            singleNumber = arr[i];
+            break;
+        }
+    }
+
+   
+    if (singleNumber == 0 && N % 2 == 1) {
+        singleNumber = arr[N - 1];
+    }
+
+   
+    cout << "The single number is: " << singleNumber << "\n";
+
+    return 0;
+}
